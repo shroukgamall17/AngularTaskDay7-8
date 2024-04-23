@@ -1,0 +1,5 @@
+<div class="d-flex justify-content-center">
+    <button class="btn btn-success" (click)="login()" [disabled]="isUserLogged" routerLink="/login/signIn" routerLinkActive="fw-bold active" >Login</button>
+    <button class="btn btn-danger" (click)="logout()" [disabled]="!isUserLogged" routerLink="/login/signOut" routerLinkActive="fw-bold active">Logout</button>
+</div>
+<router-outlet></router-outlet>

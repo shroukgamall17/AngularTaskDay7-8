@@ -1,0 +1,42 @@
+<div class="mb-3">
+    <select
+      class="form-select form-select-lg"
+      name=""
+      id=""
+      
+      [(ngModel)]="selectedCatId"
+    >
+      <option selected value="0">All</option>
+      <option *ngFor="let cat of categories" [value]="cat.id">
+        {{ cat.name }}
+      </option>
+    </select>
+  </div>
+
+<div class="bg-warning p-2 rounded mb-4">
+      <app-product [received]="selectedCatId" (onProductBought)="sendProduct($event)" ></app-product>
+    
+</div>
+  <!-- (change)="filterProducts()" -->
+
+  <h2>Products Bought</h2>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Count</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of productsBought">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.quantity }}</td>
+          <td><button (click)="removeProduct(product)" class="remove-btn">Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

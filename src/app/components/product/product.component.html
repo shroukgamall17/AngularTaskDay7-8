@@ -1,0 +1,38 @@
+
+
+<div class="card-group row">
+  <ng-container *ngFor="let item of filteredProducts">
+    <div class="col-md-3" 
+    *ngIf="item.quantity != 0"
+    >
+      <div class="card" appHoverCard [bgColor]="'#eeeeee'">
+        <img [src]="item.img" class="card-img-top" alt="..." />
+        <div
+          class="card-body"
+          [ngClass]="item.quantity == 1 ? 'bg-warning' : ''"
+        >
+          <h4 class="card-title">{{ item.name }}</h4>
+          <p class="card-text">price is: ${{ item.price }}</p>
+          <p class="card-text">Quantity: {{ item.quantity }}</p>
+          <div class="d-flex justify-content-around">
+            <button class="btn btn-success" (click)="buyProduct(item)">
+              Buy Product
+            </button>
+            <!-- <button class="btn btn-primary" [routerLink]="['/details',item.id]">Details</button> -->
+            <button class="btn btn-primary" (click)="navigateToDetailes(item.id)">Details</button>
+          </div>
+          <div class="d-flex justify-content-around mt-2">
+            <button class="btn btn-secondary"  (click)="editProduct(item)" >Edit</button>
+          
+           
+            <button class="btn btn-danger" (click)="deleteProduct(item.id)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- <h3>{{ '29909011509345' | pipeTransform : "FullDate" }}</h3> -->
+<!-- <h3>{{ '0000000000000000' | creditPipe }}</h3> -->
+<!-- [class.d-none]="item.categoryID != selectedCatId && selectedCatId != 0"  -->

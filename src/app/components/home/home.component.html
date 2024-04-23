@@ -1,0 +1,13 @@
+@for (note of notifications; track $index){
+    <div class="container d-flex justify-content-around my-5">
+        <h3>{{note}}</h3>
+        <button class="btn bg-danger" (click)="deleteNote($index)">Delete</button>
+    </div>
+}
+
+<div class="d-flex  justify-content-center mt-4 gap-4">
+    <button class="btn btn-success" (click)="increaseCountVal()">+</button>
+    <button class="btn btn-danger" (click)="decreaseCountVal()">-</button>
+    <h1>Counter is:{{counter | async }}</h1>
+</div>
+<!-- <h1>Counter is:{{count}}</h1> -->

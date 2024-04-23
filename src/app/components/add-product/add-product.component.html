@@ -1,0 +1,74 @@
+<!-- <h1>{{prdName.className | json}}</h1> -->
+<!-- <h1>{{prdName.errors | json}}</h1> -->
+<form (submit)= "!currentId &&addProduct(); currentId && update()" #addProductForm="ngForm">
+  <div class="form-group mb-4">
+    <label>Name:</label>
+    <input type="text" class="form-control" placeholder="Enter Name" [(ngModel)]="newProduct.name"
+     name="name"
+     required
+     #prdName="ngModel"
+     pattern="^[a-zA-Z\s]{3,15}$"
+     />
+     @if(prdName.touched && prdName.invalid){
+        <div class="text-danger">
+            @if(prdName.errors?.['required']){
+                <p><small>Name is required</small></p>
+            }
+           @if(prdName.errors?.['pattern']) {
+            <p><small>Name must be at least 3 characters</small></p>
+           }
+         </div>
+     }
+  </div>
+  <div class="form-group mb-4">
+    <label for="exampleInputPassword1">Price:</label>
+    <input type="number" class="form-control" placeholder="Enter Price" [(ngModel)]="newProduct.price"
+     name="price"
+     pattern="^(?:[1-9]\d{2,}|1000+)$"
+     required
+     #prdPrice="ngModel"
+     />
+     <div *ngIf="prdPrice.touched && prdPrice.invalid" class="text-danger">
+        <p *ngIf="prdPrice.errors?.['required']"><small>Price is required</small></p>
+        <p *ngIf="prdPrice.errors?.['pattern']"><small>Price must be at least 100 </small></p>
+    </div>
+  </div>
+  <div class="form-group mb-4">
+    <label for="exampleInputPassword1">Quantity:</label>
+    <input type="number" class="form-control" placeholder="Enter Quantity" [(ngModel)]="newProduct.quantity"
+     name="quantity"
+     pattern="^(?:[1-9]|10)$"
+     required
+     #prdQuantity="ngModel"
+      />
+      <div *ngIf="prdQuantity.touched && prdQuantity.invalid" class="text-danger">
+        <p *ngIf="prdQuantity.errors?.['required']"><small>Quantity is required</small></p>
+        <p *ngIf="prdQuantity.errors?.['pattern']"><small>Quantity must be at least 1 and no more than 10</small></p>
+    </div>
+  </div>
+  <div class="form-group mb-4">
+    <label for="exampleInputPassword1">Image:</label>
+    <input type="file" class="form-control" [(ngModel)]="newProduct.img"
+     name="img"
+     #img="ngModel"
+     required
+    />
+    <div *ngIf="img.touched && img.invalid" class="text-danger">
+        <p *ngIf="img.errors?.['required']"><small>Image is required</small></p>
+        <p *ngIf="img.errors?.['invalidFileType']"><small>Invalid file type, please upload an image file</small></p>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Category:</label>
+    <select class="form-select form-select-lg" name="categoryID" id="" #categoryID="ngModel" [(ngModel)]="newProduct.categoryID" required>
+      @for(cat of categories; track cat.id){
+      <option [value]="cat.id">{{ cat.name }}</option>
+      }
+    </select>
+    <div *ngIf="categoryID.touched && categoryID.invalid" class="text-danger">
+        <p *ngIf="categoryID.errors?.['required']"><small>Please select a category</small></p>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-primary">Submit</button>
+</form>

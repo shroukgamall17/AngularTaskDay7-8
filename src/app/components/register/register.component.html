@@ -1,0 +1,65 @@
+<form [formGroup]="userRegisterForm" (submit)="register()">
+    <!-- <h1>{{userRegisterForm.value | json}}</h1> -->
+    <!-- <h1>{{userRegisterForm.get('name')?.errors | json}}</h1> -->
+    <div class="form-group mb-4">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" name="name" formControlName="name" id="name"   placeholder="Enter Name">
+     @if(userRegisterForm.get('name')?.touched && userRegisterForm.get('name')?.invalid){
+        <div class="text-danger">
+            @if(userRegisterForm.get('name')?.errors?.['required']){
+                <p>Name is required</p>
+            }
+            @if(userRegisterForm.get('name')?.errors?.['pattern']){
+                <p>Name must be at least 3 characters</p>
+            }
+        </div>
+     }
+    </div>
+    <div class="form-group mb-4">
+      <label for="email">Email address:</label>
+      <input type="email" class="form-control" id="email" name="email" formControlName="email"  placeholder="Enter email">
+      @if(userRegisterForm.get('email')?.touched && userRegisterForm.get('email')?.invalid){
+        <div class="text-danger">
+            @if(userRegisterForm.get('email')?.errors?.['required']){
+                <p>Email is required</p>
+            }
+            @if(userRegisterForm.get('email')?.errors?.['pattern']){
+                <p>Please enter a valid email address</p>
+            }
+        </div>
+     }
+    </div>
+    <div class="form-group mb-4">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" name="password" formControlName="password"  placeholder="Password">
+      @if(userRegisterForm.get('password')?.touched && userRegisterForm.get('password')?.invalid){
+        <div class="text-danger">
+            @if(userRegisterForm.get('password')?.errors?.['required']){
+                <p>Password is required</p>
+            }
+            @if(userRegisterForm.get('password')?.errors?.['pattern']){
+                <p>Please enter a valid password </p>
+            }
+        </div>
+     }
+    </div>
+   <div formGroupName="address">
+     <div class="form-group mb-4">
+         <label for="city">City:</label>
+         <input type="text" class="form-control" id="city" name="city" formControlName="city"   placeholder="City">
+       </div>
+       <div class="form-group mb-4">
+         <label for="street">Street:</label>
+         <input type="text" class="form-control" id="street" name="street" formControlName="street"    placeholder="Street">
+       </div>
+   </div>
+   <div formArrayName="phoneNums">
+    <div class="form-group mb-4" class="d-flex" *ngFor="let ph of phones.controls; let i=index" >
+     <label for="phone">Phone:</label>
+     <input type="number" class="form-control my-2" id="phone" name="phone" [formControlName]="i"  placeholder="Enter Number">
+     <button type="button" (click)="removePhone(i)" class="btn btn-danger ">x</button>
+    </div>
+    <button type="button" (click)="addPhone()" class="btn btn-success ">+</button>
+   </div>
+    <button type="submit" [disabled]="userRegisterForm.invalid" class="btn btn-primary mt-1">Submit</button>
+  </form>
